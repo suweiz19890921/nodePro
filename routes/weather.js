@@ -3,6 +3,8 @@ var router = express.Router();
 var url = require('url');
 var https = require('https');
 var querystring = require('querystring');
+// var JSON = require('JSON');
+
 
 
 var headers = {
@@ -100,10 +102,19 @@ var callback = function  (response) {
 	})
 	response.on('end', function  () {
 		console.log(body);
-		res.send(body);
+		var obj = JSON.parse(body);  
+		if (obj.code != 0) {
+			console.log('发生错误');
+			console.log(obj.code);
+			res.status(409).send({'data' : {'data' :'error happen', 'code': obj.code}});
+		} else {
+			res.send(body);
+		}
 	})
 	response.on('error', function (error) {
 		console.error(error);
+		console.log('错误接口');
+		res.send(error);
 	})
 }
 var req = https.request(tideWeaOption, callback);

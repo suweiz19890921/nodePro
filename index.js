@@ -16,3 +16,4 @@ app.use('/appReviewStatu', appReviewRouter);
 
 
 app.listen(80);
+console.log('server has begin listen');

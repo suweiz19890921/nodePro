@@ -15,4 +15,4 @@ app.use('/globalConfig', globalConfigRouter);
 app.use('/appReviewStatu', appReviewRouter);
 
 
-app.listen(3000);
+app.listen(80);

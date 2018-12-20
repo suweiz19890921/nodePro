@@ -83,8 +83,31 @@ req.end();
 });
 
 
-router.get('/tide/:posi', function (req, res) {
-	res.send('潮汐天气详情');
+router.get('/tide', function (req, res) {
+	console.log('潮汐天气详情'+ req.query.geohash);
+var	path = '/v1/tidal/' + req.query.geohash + '?method=byGeohash&geohash='+req.query.geohash;
+	console.log(path);
+var tideWeaOption = {
+	host :host,
+	path :path,
+	method :method,
+	headers : headers
+}
+var callback = function  (response) {
+	var body ='';
+	response.on('data', function (data) {
+		body += data;
+	})
+	response.on('end', function  () {
+		console.log(body);
+		res.send(body);
+	})
+	response.on('error', function (error) {
+		console.error(error);
+	})
+}
+var req = https.request(tideWeaOption, callback);
+req.end();
 });
 
 

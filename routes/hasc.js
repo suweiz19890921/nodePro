@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var url = require('url');
 var https = require('https');
+var geoip=require('geoip-lite');
 
 
 var headers = {
@@ -14,11 +15,20 @@ var host = 'testapi.solot.co';
 var path ='/angler/v2/stories?method=storiesList&limit=20&receiveType=1';
 var	method = 'get';
 
-router.get('/', function (req, res) {
-	res.send('地区列表');
+router.get('/geoip',function(req,res){
+  var ip = req.query.ip||req.header('X-REAL-IP')||req.ip;
+  console.log('访问ip地址' + ip);
+  var country = geoip.lookup(ip);
+  console.log('country =' + country);
+  if(country){
+    country= country.country;
+  }else{
+    country='CN';
+  }
+  res.jsonp({code:0,country:country});
 });
 
-router.get('/ip', function (req, res) {
+router.get('/posi', function (req, res) {
 	console.log('根据用户ip获取用户所在地区' + req.query.geohash);
 var hascOption = {
 	host :host,

@@ -13,8 +13,9 @@ router.get('/newVersion', function (req, res) {
 
 router.get('/review', function (req, res) {
 	console.log('获取审核状态 版本号为' + req.query.version);
-	var data = {'code':0, 'data':{'isInReview' : 0}};
+	var data = {'code':450, 'data':{'isInReview' : 0}};
 	res.send(data);
+	// res.status(500).send({"code":401000});
 });
 
 module.exports = router;

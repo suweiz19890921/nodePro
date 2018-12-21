@@ -15,7 +15,7 @@ var	method = 'get';
 
 router.get('/download', function (req, res) {
 	console.log('获取资源')
-	res.send({'code':0, 'data' : []});
+	res.send({'code':204, 'data' : []});
 });
 
 

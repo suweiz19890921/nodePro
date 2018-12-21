@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function (req, res) {
-	res.send('审核状态');
+	res.send('审核状态控制');
 });
 
 module.exports = router;

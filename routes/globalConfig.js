@@ -11,4 +11,10 @@ router.get('/newVersion', function (req, res) {
 	res.send(data);
 });
 
+router.get('/review', function (req, res) {
+	console.log('获取审核状态 版本号为' + req.query.version);
+	var data = {'code':0, 'data':{'isInReview' : 0}};
+	res.send(data);
+});
+
 module.exports = router;

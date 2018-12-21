@@ -8,8 +8,8 @@ var querystring = require('querystring');
 
 
 var headers = {
-	'User-Agent' : 'angler/3.8.8 (iOS 12.1; iPhone8,1; zh_Hans; 750*1334; Scale/2.00;wt3mecjzv)',
-	'Authorization' : 'Basic MTg5MTYzNjo1Z0l2aVNsbmlvVVZLOVVOazFRRzNpOmFuZ2xlcg==',
+	'User-Agent' : 'GlobalTide/1.0.0 (iOS 12.1; iPhone8,1; zh_Hans; 750*1334; Scale/2.00;wt3mecmbr)',
+	'Authorization' : 'Basic OihudWxsKTpHbG9iYWxUaWRl',
 	'Content-Type':'application/x-www-form-urlencoded',
 }
 var host = 'app.solot.co';
@@ -86,6 +86,8 @@ req.end();
 
 
 router.get('/tide', function (req, res) {
+	var drr = req.ip;
+	console.log(drr);
 	console.log('潮汐天气详情'+ req.query.geohash);
 var	path = '/v1/tidal/' + req.query.geohash + '?method=byGeohash&geohash='+req.query.geohash;
 	console.log(path);

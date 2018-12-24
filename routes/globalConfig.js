@@ -24,20 +24,27 @@ router.get('/newVersion', function (req, res) {
 
 router.get('/review', function (req, res) {
 	console.log('获取审核状态 版本号为' + req.query.version);
-	var connection = mysql.createConnection(config);
+	var connection = mysql.createConnection(config)
 	connection.connect();
-    var sql = 'SELECT reviewConfig()'
-    connection.query(sql, function (error, result) {
+    var sql = 'select reviewConfig(?)'
+    var params = [req.query.version];
+    connection.query(sql, params, function (error, result) {
     if (error) throw error;
         console.log('--------------------------SELECT----------------------------');
-        
-       result = JSON.stringify(result);
-       result = JSON.parse(result);//把results字符串转为json对象
-       for(var i=0;i<result.length;i++)
-        {
-            console.log(result[i]['reviewConfig()']);
+        result = JSON.stringify(result);
+        result = JSON.parse(result);//把results字符串转为json对象
+        console.log(result);
+        var lastKey= '';
+        for (var i = 0; i < result.length; i++) {
+        	var temp = result[i];
+        	 for (var key in temp){
+              lastKey = key;
         }
-        res.send(result[0]['reviewConfig()']);
+        }
+       
+        console.log(lastKey);
+        console.log(result[0][lastKey]);
+        res.send(result[0][lastKey]);
         connection.end();
         console.log('------------------------------------------------------------\n\n'); 
 });

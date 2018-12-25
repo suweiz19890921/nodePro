@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var untilTool = require(ROOT_DIR +'/lib/untilTool.js');
 var mysql = require('mysql');
 var JSON = require('JSON');
 
@@ -31,20 +31,7 @@ router.get('/review', function (req, res) {
     connection.query(sql, params, function (error, result) {
     if (error) throw error;
         console.log('--------------------------SELECT----------------------------');
-        result = JSON.stringify(result);
-        result = JSON.parse(result);//把results字符串转为json对象
-        console.log(result);
-        var lastKey= '';
-        for (var i = 0; i < result.length; i++) {
-        	var temp = result[i];
-        	 for (var key in temp){
-              lastKey = key;
-        }
-        }
-       
-        console.log(lastKey);
-        console.log(result[0][lastKey]);
-        res.send(result[0][lastKey]);
+        res.jsonp(untilTool.handleDBFunData(result));
         connection.end();
         console.log('------------------------------------------------------------\n\n'); 
 });

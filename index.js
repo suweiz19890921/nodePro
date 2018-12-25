@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+global.ROOT_DIR = __dirname;
 
 var indexRouter = require('./routes/index.js');
 var weatherRouter = require('./routes/weather.js');

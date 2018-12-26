@@ -17,9 +17,17 @@ router.get('/', function (req, res) {
 });
 
 router.get('/newVersion', function (req, res) {
-	console.log('获取新版本');
-	var data = {'code':0, 'data':[], 'languages' : []};
-	res.send(data);
+	console.log('获取新版本 是否为需要强制升级的版本');
+	var connection = mysql.createConnection(config)
+	connection.connect();
+    var sql = 'select getNewVersion()'
+    connection.query(sql, function (error, result) {
+    if (error) throw error;
+        console.log('--------------------------SELECT----------------------------');
+        res.send(untilTool.handleDBFunData(result));
+        connection.end();
+        console.log('------------------------------------------------------------\n\n'); 
+});
 });
 
 router.get('/review', function (req, res) {

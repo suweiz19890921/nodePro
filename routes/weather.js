@@ -18,7 +18,7 @@ var	method = 'get';
 
 //批量天气
 router.get('/mult', function (req, res) {
-	console.log(req.query.emptyGeohashs);
+	console.log('emptyGeohashs = ' + req.query.emptyGeohashs);
 var post_data = {
 	"emptyGeohashs": req.query.emptyGeohashs,
 	"update": 0,

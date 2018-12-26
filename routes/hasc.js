@@ -17,7 +17,7 @@ var	method = 'get';
 
 router.get('/geoip',function(req,res){
   var ip = req.query.ip||req.header('X-REAL-IP')||req.ip;
-  console.log('访问ip地址' + ip);
+  console.log(req.originalUrl);
   var country = geoip.lookup(ip);
   console.log('country =' + country);
   if(country){
@@ -29,13 +29,12 @@ router.get('/geoip',function(req,res){
 });
 
 router.get('/posi', function (req, res) {
-	console.log('根据用户ip获取用户所在地区' + req.query.geohash);
-var hascOption = {
+   var hascOption = {
 	host :host,
 	path :'/v1/geoip/hasc/'+ req.query.geohash,
 	method :method,
 	headers : headers
-}
+   }
 var callback = function  (response) {
 	var body ='';
 	response.on('data', function (data) {
@@ -43,6 +42,7 @@ var callback = function  (response) {
 	})
 	response.on('end', function  () {
 		console.log(body);
+		console.log(req.originalUrl);
 		res.send(body);
 	})
 	response.on('error', function (error) {

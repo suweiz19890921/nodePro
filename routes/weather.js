@@ -18,6 +18,7 @@ var	method = 'get';
 
 //批量天气
 router.get('/mult', function (req, res) {
+	console.log(req.originalUrl);
 	console.log('emptyGeohashs = ' + req.query.emptyGeohashs);
 var post_data = {
 	"emptyGeohashs": req.query.emptyGeohashs,
@@ -26,7 +27,6 @@ var post_data = {
 }
 ;//这是需要提交的数据
 var content = querystring.stringify(post_data);
-console.log(content);
 var multWeaOption = {
 	host :host,
 	path :'/v2/weather/getMultiWeather',
@@ -52,15 +52,9 @@ req.end();
 });
 
 
-router.get('/singal', function (req, res) {
-	res.send('单天气' + req.params.posi);
-});
-
-
-
 //一周天气
 router.get('/sevenDays', function (req, res) {
-	console.log('一周天气' + req.query.geohash);
+	console.log(req.originalUrl);
 	var sevenDaysWeaOption = {
 	host :host,
 	path :'/v2/weather/:geohash?'+'geohash='+req.query.geohash+'isVip='+ 1,
@@ -88,7 +82,7 @@ req.end();
 router.get('/tide', function (req, res) {
 	var drr = req.ip;
 	console.log(drr);
-	console.log('潮汐天气详情'+ req.query.geohash);
+	console.log(req.originalUrl);
 var	path = '/v1/tidal/' + req.query.geohash + '?method=byGeohash&geohash='+req.query.geohash;
 	console.log(path);
 var tideWeaOption = {

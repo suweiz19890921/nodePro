@@ -14,7 +14,7 @@ var path ='/angler/v2/stories?method=storiesList&limit=20&receiveType=1';
 var	method = 'get';
 
 router.get('/download', function (req, res) {
-	console.log('获取资源')
+	console.log(req.originalUrl);
 	res.send({'code':0, 'data' : []});
 });
 

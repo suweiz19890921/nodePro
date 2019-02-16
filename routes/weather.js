@@ -12,7 +12,7 @@ var headers = {
 	'Authorization' : 'Basic OihudWxsKTpHbG9iYWxUaWRl',
 	'Content-Type':'application/x-www-form-urlencoded',
 }
-var host = 'app.solot.co';
+var host = 'app.catches.com';
 var path ='/angler/v2/stories?method=storiesList&limit=20&receiveType=1';
 var	method = 'get';
 

@@ -1,48 +1,25 @@
 var express = require('express');
 var router = express.Router();
 var untilTool = require(ROOT_DIR +'/lib/untilTool.js');
-var mysql = require('mysql');
-var JSON = require('JSON');
-
-var config = {
-  host     : 'localhost',
-  user     : 'root',
-  password : '123456',
-  database : 'base',
-  stringifyObjects : 'TRUE'
-}
+var client = require(ROOT_DIR + '/lib/clientTidePg.js');
+var analysisReq = require(ROOT_DIR + '/lib/analysisReqParams.js');
 
 router.get('/', function (req, res) {
 	res.send('全局配置');
 });
 
 router.get('/newVersion', function (req, res) {
-	var connection = mysql.createConnection(config)
-	connection.connect();
-    var sql = 'select getNewVersion()'
-    connection.query(sql, function (error, result) {
-    if (error) throw error;
-        console.log(req.originalUrl);
-        console.log('--------------------------SELECT----------------------------');
-        res.send(untilTool.handleDBFunData(result));
-        connection.end();
-        console.log('------------------------------------------------------------\n\n'); 
-});
+    // var params = analysisReq.getReqParams(req);
+    client.callTidePg('wade_module_version.get_new_version', null, function (ret) {
+      res.json(ret);
+    })
 });
 
 router.get('/review', function (req, res) {
-	var connection = mysql.createConnection(config)
-	connection.connect();
-    var sql = 'select reviewConfig(?)'
-    var params = [req.query.version];
-    connection.query(sql, params, function (error, result) {
-    if (error) throw error;
-        console.log(req.originalUrl);
-        console.log('--------------------------SELECT----------------------------');
-        res.jsonp(untilTool.handleDBFunData(result));
-        connection.end();
-        console.log('------------------------------------------------------------\n\n'); 
-});
+    var params = analysisReq.getReqParams(req);
+    client.callTidePg('wade_module_version.get_new_version', params, function (ret) {
+      res.json(ret);
+    })
 	// res.status(500).send({"code":401000});
 });
 

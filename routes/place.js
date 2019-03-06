@@ -33,7 +33,11 @@ router.get('/v1/place', function (req, res) {
 		break;
 
 		case "syncPlace" :
-res.status(500).send({"code":400000, 'data' : 'NOT FOUND'});
+		var params = req.query;
+		console.log(JSON.stringify(params));
+		client.callTidePg('wade_module_place.sync_place', params, function (ret) {
+           res.json(ret);
+        })
 		break;
 
 		default:

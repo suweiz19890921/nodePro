@@ -33,8 +33,7 @@ router.get('/v1/place', function (req, res) {
 		break;
 
 		case "syncPlace" :
-		var params = req.query;
-		console.log(JSON.stringify(params));
+		var params = analysisReq.getReqParams(req);
 		client.callTidePg('wade_module_place.sync_place', params, function (ret) {
            res.json(ret);
         })

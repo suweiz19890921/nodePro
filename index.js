@@ -9,13 +9,15 @@ var globalConfigRouter = require('./routes/globalConfig.js');
 var resourceRouter = require('./routes/resource.js');
 var noticeMsgRouter = require('./routes/noticeMsg.js');
 var placeRouter = require('./routes/place.js');
+var public = require(ROOT_DIR + '/lib/public');
 
 
-app.all('/*',function (req, res, next) {
-	// body...
-	console.log('hello world ');
-	return next();
-});
+// app.all('/*',function (req, res, next) {
+// 	// body...
+// 	console.log('hello world ');
+// 	return next();
+// });
+app.all("/*", public.parseUserAgent);
 app.use('/', indexRouter);
 app.use('/weather', weatherRouter);
 app.use('/hasc', hascRouter);

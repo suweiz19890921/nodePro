@@ -10,18 +10,19 @@ router.get('/', function (req, res) {
 
 router.get('/newVersion', function (req, res) {
     // var params = analysisReq.getReqParams(req);
-    console.log('newVion : ' + JSON.stringify(req.header('User-Agent')));
     client.callTidePg('wade_module_version.get_new_version', null, function (ret) {
       res.json(ret);
     })
 });
 
-router.get('/review', function (req, res) {
-    var params = analysisReq.getReqParams(req);
-    client.callTidePg('wade_module_version.get_new_version', params, function (ret) {
+
+router.get('/tideconfig', function (req, res) {
+    client.callTidePg('wade_module_tide.tide_config', null, function (ret) {
       res.json(ret);
     })
-	// res.status(500).send({"code":401000});
+  // res.status(500).send({"code":401000});
 });
+
+
 
 module.exports = router;

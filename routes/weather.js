@@ -3,9 +3,7 @@ var router = express.Router();
 var url = require('url');
 var https = require('https');
 var querystring = require('querystring');
-// var JSON = require('JSON');
-
-
+var client = require(ROOT_DIR + '/lib/clientTidePg.js');
 
 var headers = {
 	'User-Agent' : 'GlobalTide/1.0.0 (iOS 12.1; iPhone8,1; zh_Hans; 750*1334; Scale/2.00;wt3mecmbr)',
@@ -100,16 +98,17 @@ var callback = function  (response) {
 		console.log(body);
 		var obj = JSON.parse(body);  
 		if (obj.code != 0) {
-			console.log('发生错误');
-			console.log(obj.code);
 			res.status(409).send({'data' : {'data' :'error happen', 'code': obj.code}});
 		} else {
+			var params = {"id" : obj['id'], "geohash" : obj['geohash'], "latlng" : obj['latlng'], "tide" : obj};
+		    client.callTidePg('wade_module_tide.add_tide', params, function (ret) {
+            console.log(JSON.stringify(ret));
+            })
 			res.send(body);
+			
 		}
 	})
 	response.on('error', function (error) {
-		console.error(error);
-		console.log('错误接口');
 		res.send(error);
 	})
 }

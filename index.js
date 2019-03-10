@@ -10,6 +10,8 @@ var resourceRouter = require('./routes/resource.js');
 var noticeMsgRouter = require('./routes/noticeMsg.js');
 var placeRouter = require('./routes/place.js');
 var public = require(ROOT_DIR + '/lib/public');
+var feedbackRouter = require('./routes/feedback.js');
+var bodyParser = require('body-parser');
 
 
 // app.all('/*',function (req, res, next) {
@@ -17,6 +19,7 @@ var public = require(ROOT_DIR + '/lib/public');
 // 	console.log('hello world ');
 // 	return next();
 // });
+app.use(bodyParser.urlencoded({ extended: false }));
 app.all("/*", public.parseUserAgent);
 app.use('/', indexRouter);
 app.use('/weather', weatherRouter);
@@ -25,6 +28,7 @@ app.use('/globalConfig', globalConfigRouter);
 app.use('/resource', resourceRouter);
 app.use('/noticeMsg', noticeMsgRouter);
 app.use('/user/place', placeRouter);
+app.use('/feedback', feedbackRouter);
 
 
 

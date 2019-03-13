@@ -14,11 +14,6 @@ var feedbackRouter = require('./routes/feedback.js');
 var bodyParser = require('body-parser');
 
 
-// app.all('/*',function (req, res, next) {
-// 	// body...
-// 	console.log('hello world ');
-// 	return next();
-// });
 app.use(bodyParser.json());
 app.all("/*", public.parseUserAgent);
 app.use('/', indexRouter);
@@ -32,5 +27,5 @@ app.use('/feedback', feedbackRouter);
 
 
 
-app.listen(80);
+app.listen(8080);
 console.log('server has begin listen');

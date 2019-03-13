@@ -19,7 +19,7 @@ var bodyParser = require('body-parser');
 // 	console.log('hello world ');
 // 	return next();
 // });
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.all("/*", public.parseUserAgent);
 app.use('/', indexRouter);
 app.use('/weather', weatherRouter);

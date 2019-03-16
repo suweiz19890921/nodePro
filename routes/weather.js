@@ -54,7 +54,7 @@ router.get('/sevenDays', function (req, res) {
 	console.log(req.originalUrl);
 	var sevenDaysWeaOption = {
 	host :host,
-	path :'/v2/weather/:geohash?'+'geohash='+req.query.geohash+'isVip='+ 1,
+	path :'/v2/weather/'+ req.query.geohash +'?'+'isVip=1&update=0',
 	method :method,
 	headers : headers
 }

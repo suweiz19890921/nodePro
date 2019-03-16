@@ -6,9 +6,9 @@ var analysisReq = require(ROOT_DIR + '/lib/analysisReqParams.js');
 
 router.post('/submit', function (req, res) {
 	var params = analysisReq.getReqParams(req);
-	var data = {'code':0, 'data':[]};
-	console.log(req.body.contact);
-	res.json(data);
+	client.callTidePg('wade_module_feedback.add_contact', params, function (ret) {
+      res.json(ret);
+    })
   // res.status(500).send({"code":401000});
 });
 

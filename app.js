@@ -10,11 +10,13 @@ var resourceRouter = require('./routes/resource.js');
 var noticeMsgRouter = require('./routes/noticeMsg.js');
 var placeRouter = require('./routes/place.js');
 var public = require(ROOT_DIR + '/lib/public');
+var checkUser = require(ROOT_DIR + '/lib/checkUser');
 var feedbackRouter = require('./routes/feedback.js');
 var bodyParser = require('body-parser');
 
 
 app.use(bodyParser.json());
+app.all("/*", checkUser.checkUser);
 app.all("/*", public.parseUserAgent);
 app.use('/', indexRouter);
 app.use('/weather', weatherRouter);

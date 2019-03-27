@@ -15,8 +15,8 @@ var	method = 'get';
 
 //批量天气
 router.get('/mult', function (req, res) {
-	console.log(req.originalUrl);
-	console.log('emptyGeohashs = ' + req.query.emptyGeohashs);
+	console.log('----------------------------------------------------------------------');
+	console.log('url = ' + req.originalUrl);
 var post_data = {
 	"emptyGeohashs": req.query.emptyGeohashs,
 	"update": 0,
@@ -36,7 +36,8 @@ var callback = function  (response) {
 		body += data;
 	})
 	response.on('end', function  () {
-		console.log(body);
+        console.log('date = ' + new Date() + "\nret = " + body);
+        console.log('----------------------------------------------------------------------');
 		res.send(body);
 	})
 	response.on('error', function (error) {
@@ -51,7 +52,8 @@ req.end();
 
 //一周天气
 router.get('/sevenDays', function (req, res) {
-	console.log(req.originalUrl);
+	console.log('----------------------------------------------------------------------');
+	console.log('url = ' + req.originalUrl);
 	var sevenDaysWeaOption = {
 	host :host,
 	path :'/v2/weather/'+ req.query.geohash +'?'+'isVip=1&update=0',
@@ -64,7 +66,8 @@ var callback = function  (response) {
 		body += data;
 	})
 	response.on('end', function  () {
-		console.log(body);
+        console.log('date = ' + new Date() + "\nret = " + body);
+        console.log('----------------------------------------------------------------------');
 		res.send(body);
 	})
 	response.on('error', function (error) {
@@ -77,11 +80,10 @@ req.end();
 
 
 router.get('/tide', function (req, res) {
-	var drr = req.ip;
-	console.log(drr);
-	console.log(req.originalUrl);
+	console.log('----------------------------------------------------------------------');
+	console.log('url = ' + req.originalUrl);
 var	path = '/v1/tidal/' + req.query.geohash + '?method=byGeohash&geohash='+req.query.geohash;
-	console.log(path);
+	console.log('path = ' + path);
 var tideWeaOption = {
 	host :host,
 	path :path,
@@ -97,6 +99,8 @@ var callback = function  (response) {
 		console.log(body);
 		var obj = JSON.parse(body);  
 		if (obj.code != 0) {
+			console.log('date = ' + new Date() + "\nret = " + body);
+            console.log('----------------------------------------------------------------------');
 			res.status(409).send({'data' : {'data' :'error happen', 'code': obj.code}});
 		} else {
 			var params = {"id" : obj['id'], "geohash" : obj['geohash'], "latlng" : obj['latlng'], "tide" : obj};
@@ -104,6 +108,8 @@ var callback = function  (response) {
             console.log(JSON.stringify(ret));
             })
 			res.send(body);
+			console.log('date = ' + new Date() + "\nret = " + body);
+            console.log('----------------------------------------------------------------------');
 			
 		}
 	})

@@ -35,5 +35,5 @@ app.use('/video', videoRouter);//播放视频
 
 
 
-app.listen(3000);
+app.listen(3389);
 console.log('server has begin listen');

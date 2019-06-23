@@ -87,7 +87,7 @@ router.get('/tide', function (req, res) {
 var	path = '/v1/tidal/' + req.query.geohash + '?method=byGeohash&geohash='+req.query.geohash;
 	console.log('path = ' + path);
 var tideWeaOption = {
-	host :host,
+	host :tideHost,
 	path :path,
 	method :method,
 	headers : headers

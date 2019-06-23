@@ -10,7 +10,8 @@ var headers = {
 	'Authorization' : 'Basic OihudWxsKTpHbG9iYWxUaWRl',
 	'Content-Type':'application/x-www-form-urlencoded',
 }
-var host = 'app.catches.com';
+var host = 'g.catches.com';
+var tideHost = 'app.catches.com';
 var	method = 'get';
 
 //批量天气
@@ -79,6 +80,7 @@ req.end();
 });
 
 
+//潮汐
 router.get('/tide', function (req, res) {
 	console.log('----------------------------------------------------------------------');
 	console.log('url = ' + req.originalUrl);

@@ -13,6 +13,7 @@ var public = require(ROOT_DIR + '/lib/public');
 var checkUser = require(ROOT_DIR + '/lib/checkUser');
 var feedbackRouter = require('./routes/feedback.js');
 var liveListRouter = require('./routes/liveList.js');
+var videoRouter = require('./routes/video.js');
 var bodyParser = require('body-parser');
 
 
@@ -30,6 +31,7 @@ app.use('/noticeMsg', noticeMsgRouter);
 app.use('/user/place', placeRouter);
 app.use('/feedback', feedbackRouter);
 app.use('/grab', liveListRouter); //抓取映客服务端拉流地址
+app.use('/video', videoRouter);//播放视频
 
 
 

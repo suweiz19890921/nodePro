@@ -14,6 +14,7 @@ var checkUser = require(ROOT_DIR + '/lib/checkUser');
 var feedbackRouter = require('./routes/feedback.js');
 var liveListRouter = require('./routes/liveList.js');
 var videoRouter = require('./routes/video.js');
+var fileRouter = require('./routes/file.js');
 var bodyParser = require('body-parser');
 
 
@@ -32,8 +33,9 @@ app.use('/user/place', placeRouter);
 app.use('/feedback', feedbackRouter);
 app.use('/grab', liveListRouter); //抓取映客服务端拉流地址
 app.use('/video', videoRouter);//播放视频
+app.use('/data', fileRouter);//上传图片
+console.log('dfdfdfd');
 
 
-
-app.listen(3389);
+app.listen(3000);
 console.log('server has begin listen');

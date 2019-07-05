@@ -9,12 +9,14 @@ var client = require(ROOT_DIR + '/lib/clientTidePg.js');
 var analysisReq = require(ROOT_DIR + '/lib/analysisReqParams.js');
 
 // 上传文件
-var uploadFile = multer({dest: 'public/upload/'});
+var uploadFile = multer({dest: 'public/upload/'}).single('filepath');
 var uploadImport = multer({storage: multer.memoryStorage(), limits: {fileSize: 10 * 1024 * 1024}});
 
 router.post('/addfile', function (req, res) {
-    uploadFile.single('filepath')
-        var param = util.wrapParams(req);
+    console.log('xiang ying qing qiu 1');
+    uploadFile(req, res, function(err) {
+        console.log('xiang ying qing qiu 2');
+        var param = analysisReq.getReqParams(req);
         var file = req.file;
 
         param.name = file.originalname;
@@ -26,13 +28,27 @@ router.post('/addfile', function (req, res) {
         param.folder = file.destination;
         param.filename = file.filename;
         param.property = file;
+        console.log('file add')
+        console.log(JSON.stringify(param));
 
-        client.callTidePg('pkg_data.file_add_edit', param, function (ret) {
-            ret = untilTool.changeJson(ret);
-            if (!!ret && ret.code == 200) {
-                res.json(ret);
-            } else {
-                res.json(ret);
-            }
+        var url = '/upload/' + req.file.filename
+        res.json({
+            code : 200,
+            data : url
+        })
+
+        //上库
+        //client.callTidePg('pkg_data.file_add_edit', param, function (ret) {
+        //    ret = untilTool.changeJson(ret);
+        //    if (!!ret && ret.code == 200) {
+        //        res.json(ret);
+        //    } else {
+        //        res.json(ret);
+        //    }
+        //})
     })
+
+
 });
+
+module.exports = router;

@@ -9,7 +9,7 @@ var client = require(ROOT_DIR + '/lib/clientTidePg.js');
 var analysisReq = require(ROOT_DIR + '/lib/analysisReqParams.js');
 
 // 上传文件
-var uploadFile = multer({dest: 'public/upload/'}).single('filepath');
+var uploadFile = multer({dest: '/Users/suwei/Downloads/temp'}).single('filepath');
 var uploadImport = multer({storage: multer.memoryStorage(), limits: {fileSize: 10 * 1024 * 1024}});
 
 router.post('/addfile', function (req, res) {
@@ -34,7 +34,7 @@ router.post('/addfile', function (req, res) {
         var url = '/upload/' + req.file.filename
         res.json({
             code : 200,
-            data : url
+            //data : {'url' : url}
         })
 
         //上库
@@ -50,5 +50,6 @@ router.post('/addfile', function (req, res) {
 
 
 });
+
 
 module.exports = router;

@@ -37,5 +37,5 @@ app.use('/data', fileRouter);//上传图片
 console.log('dfdfdfd');
 
 
-app.listen(3000);
+app.listen(3389);
 console.log('server has begin listen');

@@ -7,9 +7,21 @@ var multer = require('multer');
 var untilTool = require(ROOT_DIR +'/lib/untilTool.js');
 var client = require(ROOT_DIR + '/lib/clientTidePg.js');
 var analysisReq = require(ROOT_DIR + '/lib/analysisReqParams.js');
+var config = require(ROOT_DIR + '/lib/config.js');
+var pathLib = require("path");
+var fs = require("fs");
 
 // 上传文件
-var uploadFile = multer({dest: '/Users/suwei/Downloads/temp'}).single('filepath');
+
+var nginx_path;
+
+if (process.env.NODE_ENV == 'production') {
+    nginx_path = config['product_nginx_image_path'];
+} else {
+    nginx_path = config['test_nginx_image_path'];
+}
+
+var uploadFile = multer({dest: nginx_path.image_dir}).single('filepath');
 var uploadImport = multer({storage: multer.memoryStorage(), limits: {fileSize: 10 * 1024 * 1024}});
 
 router.post('/addfile', function (req, res) {
@@ -30,12 +42,23 @@ router.post('/addfile', function (req, res) {
         param.property = file;
         console.log('file add')
         console.log(JSON.stringify(param));
+        var pathNew = req.file.path + pathLib.parse(req.file.originalname).ext;
+        fs.rename(req.file.path, pathNew, function (err) {
+            if (err) {
+                res.json({
+                    code : 405,
+                    data : {'message' : '文件上传失败'}
+                })
+            } else {
+                var tempUrl = nginx_path.image_url + req.file.filename + pathLib.parse(req.file.originalname).ext;
+                console.log('tempUrl = ' + tempUrl);
+                res.json({
+                    code : 200,
+                    data : {'url' : tempUrl}
+                })
+            }
+        });
 
-        var url = '/upload/' + req.file.filename
-        res.json({
-            code : 200,
-            //data : {'url' : url}
-        })
 
         //上库
         //client.callTidePg('pkg_data.file_add_edit', param, function (ret) {

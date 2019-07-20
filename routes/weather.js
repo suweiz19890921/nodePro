@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var url = require('url');
+var http = require('http');
 var https = require('https');
 var querystring = require('querystring');
 var client = require(ROOT_DIR + '/lib/clientTidePg.js');
@@ -84,16 +85,18 @@ req.end();
 router.get('/tide', function (req, res) {
 	console.log('----------------------------------------------------------------------');
 	console.log('url = ' + req.originalUrl);
-var	path = '/v1/tidal/' + req.query.geohash + '?method=byGeohash&geohash='+req.query.geohash;
+var	path = '/api/v1/tide/' + req.query.geohash;
 	console.log('path = ' + path);
+	console.log('des url = ' + 'vk0.co:7003' + path);
 var tideWeaOption = {
-	host :tideHost,
+	host :'vk0.co:7003',
 	path :path,
 	method :method,
 	headers : headers
 }
 var callback = function  (response) {
 	var body ='';
+	console.log('dfjdkfjkdjf');
 	response.on('data', function (data) {
 		body += data;
 	})
@@ -120,7 +123,7 @@ var callback = function  (response) {
 		res.send(error);
 	})
 }
-var req = https.request(tideWeaOption, callback);
+var req = http.request(tideWeaOption, callback);
 req.end();
 });
 

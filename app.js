@@ -16,6 +16,8 @@ var liveListRouter = require('./routes/liveList.js');
 var videoRouter = require('./routes/video.js');
 var fileRouter = require('./routes/file.js');
 var bodyParser = require('body-parser');
+//var APNsRouter = require('./routes/APNs.js'); //推送
+
 
 
 app.use(bodyParser.json());

@@ -103,6 +103,30 @@ router.post('/syncProduct', function (req, res) {
     });
 });
 
+router.post('/syncProductType', function (req, res) {
+    var str_json = JSON.stringify(req.body);
+    fs.writeFile('productType.json', str_json, 'utf8', function(){
+        // 保存完成后的回调函数
+        console.log("保存完成");
+        res.json({
+            code : 200,
+            data : {'message' : '同步产品类型成功'}
+        })
+    });
+});
+
+router.post('/syncMaterialType', function (req, res) {
+    var str_json = JSON.stringify(req.body);
+    fs.writeFile('materialType.json', str_json, 'utf8', function(){
+        // 保存完成后的回调函数
+        console.log("保存完成");
+        res.json({
+            code : 200,
+            data : {'message' : '同步材料类型成功'}
+        })
+    });
+});
+
 
 
 module.exports = router;

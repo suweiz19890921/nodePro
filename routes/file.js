@@ -93,7 +93,8 @@ router.post('/syncMaterial', function (req, res) {
 router.post('/syncProduct', function (req, res) {
     console.log('welcome product');
     var str_json = JSON.stringify(req.body);
-    fs.writeFile('product.json', str_json, 'utf8', function(){
+    var file = pathLib.join(__dirname, 'product.json');
+    fs.writeFile(file, str_json, 'utf8', function(){
         // 保存完成后的回调函数
         console.log("保存完成");
         res.json({

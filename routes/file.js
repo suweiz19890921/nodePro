@@ -97,13 +97,14 @@ router.get('/getAllProduct', function (req, res) {
             console.log(file);
             res.json({
                 code : 400,
-                data : {'message' : '读取产品失败'}
+                message : '读取产品文件失败'
             })
         } else {
             console.log('读取文件成功');
             res.json({
-                code : 403,
-                message : '文件读取成功'
+                code : 200,
+                //data : {'allList' : data}
+                data : {'allList' : ''}//先返回空串 等需要的时候打开即可
             })
         }
     });

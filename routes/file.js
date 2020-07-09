@@ -109,6 +109,7 @@ router.get('/getAllProduct', function (req, res) {
     fs.readFile(file, 'utf-8', function(err, data) {
         if (err) {
             console.log('读取文件失败');
+            console.log(file);
             res.json({
                 code : 400,
                 data : {'message' : '读取产品失败'}

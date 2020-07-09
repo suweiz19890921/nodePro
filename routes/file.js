@@ -108,11 +108,13 @@ router.get('/getAllProduct', function (req, res) {
     var file = pathLib.join(__dirname, 'product.json');
     fs.readFile(file, 'utf-8', function(err, data) {
         if (err) {
+            console.log('读取文件失败');
             res.json({
                 code : 400,
                 data : {'message' : '读取产品失败'}
             })
         } else {
+            console.log('读取文件成功');
             res.json({
                 code : 200,
                 data : {'message' : data}

@@ -103,6 +103,24 @@ router.post('/syncProduct', function (req, res) {
     });
 });
 
+router.post('/getAllProduct', function (req, res) {
+    console.log('welcome get all product');
+    var file = path.join(__dirname, 'product.json');
+    fs.readFile(file, 'utf-8', function(err, data) {
+        if (err) {
+            res.json({
+                code : 400,
+                data : {'message' : '读取产品失败'}
+            })
+        } else {
+            res.json({
+                code : 200,
+                data : {'message' : data}
+            })
+        }
+    });
+});
+
 router.post('/syncProductType', function (req, res) {
     var str_json = JSON.stringify(req.body);
     fs.writeFile('productType.json', str_json, 'utf8', function(){

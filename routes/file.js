@@ -119,7 +119,7 @@ router.get('/getAllProduct', function (req, res) {
             console.log('读取文件成功');
             res.json({
                 code : 200,
-                data : {'message' : data}
+                data : {'allList' : data}
             })
         }
     });

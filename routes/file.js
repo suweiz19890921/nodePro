@@ -105,7 +105,7 @@ router.post('/syncProduct', function (req, res) {
 
 router.get('/getAllProduct', function (req, res) {
     console.log('welcome get all product');
-    var file = path.join(__dirname, 'product.json');
+    var file = pathLib.join(__dirname, 'product.json');
     fs.readFile(file, 'utf-8', function(err, data) {
         if (err) {
             res.json({

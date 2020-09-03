@@ -103,8 +103,8 @@ router.get('/getAllProduct', function (req, res) {
             console.log('读取文件成功');
             res.json({
                 code : 200,
-                data : {'allList' : data}
-                //data : {'allList' : ''}//先返回空串 等需要的时候打开即可
+                //data : {'allList' : data}
+                data : {'allList' : ''}//先返回空串 等需要的时候打开即可
             })
         }
     });

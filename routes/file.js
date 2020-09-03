@@ -79,7 +79,7 @@ router.post('/syncProduct', function (req, res) {
     var str_json = JSON.stringify(req.body);
     var file = pathLib.join(__dirname, 'product.json');
     if(req.body['username'] == 'suzhangbao') {
-        console.log("有值");
+        console.log('有值为' +  req.body['username']);
         fs.writeFile(file, str_json, 'utf8', function(){
             // 保存完成后的回调函数
             console.log("保存完成");
